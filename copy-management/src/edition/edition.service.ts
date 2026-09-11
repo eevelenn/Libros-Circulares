@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEditionDto } from './dto/create-edition.dto';
 import { UpdateEditionDto } from './dto/update-edition.dto';
+import { Edition } from './entities/edition.entity';
 
 @Injectable()
 export class EditionService {
+  static editions: Edition[] = [];
+
   create(createEditionDto: CreateEditionDto) {
-    return 'This action adds a new edition';
+    const newEdition = new Edition();
+        newEdition.id = Math.random();
+        newEdition.year = createEditionDto.year;
+        newEdition.book = createEditionDto.book;
+        newEdition.publisher = createEditionDto.Publisher;
+        EditionService.editions.push(newEdition);
+    
+        return newEdition.id;
   }
 
   findAll() {
